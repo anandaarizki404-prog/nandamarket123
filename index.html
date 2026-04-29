@@ -1,0 +1,1059 @@
+ <!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nanda Market</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#7C3AED',
+                        secondary: '#6366F1',
+                        accent: '#A855F7',
+                        dark: '#09090B',
+                        darker: '#020617',
+                        card: '#111827',
+                    },
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-gradient {
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .glow {
+                box-shadow: 0 0 25px rgba(124, 58, 237, 0.4);
+            }
+            .bg-grid {
+                background-image: 
+                    linear-gradient(rgba(124, 58, 237, 0.1) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(124, 58, 237, 0.1) 1px, transparent 1px);
+                background-size: 30px 30px;
+            }
+            .input-glow:focus {
+                box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.3);
+            }
+        }
+    </style>
+    <style>
+        /* Animasi */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .modal {
+            animation: fadeIn 0.3s ease-out;
+        }
+        /* Countdown */
+        .countdown {
+            font-family: 'Poppins', sans-serif;
+            font-weight: bold;
+        }
+        /* Tooltip */
+        .tooltip {
+            position: absolute;
+            background: #1f2937;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            z-index: 10;
+            display: none;
+            border: 1px solid #4b5563;
+            white-space: nowrap;
+        }
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 15px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #1f2937 transparent transparent transparent;
+        }
+    </style>
+</head>
+<body class="font-poppins bg-darker text-white min-h-screen bg-grid">
+
+    <!-- Sidebar / Menu -->
+    <div id="sidebar" class="w-72 h-screen bg-card border-r border-white/10 fixed left-0 top-0 transition-all duration-300 z-50 -translate-x-full md:translate-x-0">
+        <div class="p-5">
+            <!-- Header Sidebar -->
+            <div class="flex items-center gap-3 mb-8">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                    <i class="fas fa-store text-white"></i>
+                </div>
+                <div>
+                    <h2 class="font-bold text-lg">Nanda Host</h2>
+                    <p class="text-xs text-gray-400"</p>
+                </div>
+                <button id="closeSidebar" class="ml-auto text-gray-400 hover:text-white md:hidden">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Menu Items -->
+            <nav class="space-y-2">
+                <!-- WhatsApp -->
+                <a href="https://wa.me/6283130010117" target="_blank" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-all">
+                    <i class="fab fa-whatsapp text-lg text-green-400"></i>
+                    <span>WhatsApp</span>
+                </a>
+
+                <!-- Telegram -->
+                <a href="https://t.me/Nanoffc" target="_blank" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-all">
+                    <i class="fab fa-telegram text-lg text-blue-400"></i>
+                    <span>Telegram</span>
+                </a>
+
+                <!-- TikTok -->
+                <a href="https://www.tiktok.com/@nandakiezx" target="_blank" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-all">
+                    <i class="fab fa-tiktok text-lg"></i>
+                    <span>TikTok</span>
+                </a>
+
+                <!-- Instagram -->
+                <a href="https://instagram.com/nandakiezx" target="_blank" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-all">
+                    <i class="fab fa-instagram text-lg text-pink-500"></i>
+                    <span>Instagram</span>
+                </a>
+
+                <!-- Saluran -->
+                <a href="https://whatsapp.com/channel/0029VbCtwc7GZNCnBeSnTD3B" target="_blank" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-all">
+                    <i class="fas fa-broadcast-tower text-lg text-cyan-400"></i>
+                    <span>Saluran</span>
+                </a>
+
+                <!-- Grup -->
+                <a href="https://chat.whatsapp.com/DDLhwJ35m8oFB8ghzBFH1m" target="_blank" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-all">
+                    <i class="fas fa-users text-lg text-orange-400"></i>
+                    <span>Grup</span>
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div id="overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 hidden md:hidden"></div>
+
+    <!-- Main Content -->
+    <div class="flex-1 md:ml-72 p-4 md:p-8 overflow-y-auto h-screen">
+        <!-- Header Mobile -->
+        <div class="flex items-center justify-between mb-8 md:hidden">
+            <button id="openSidebar" class="text-2xl">
+                <i class="fas fa-bars"></i>
+            </button>
+            <span class="font-bold text-xl">Nanda Market</span>
+            <div></div>
+        </div>
+
+    <!-- BACKGROUND IMAGE -->
+    <div class="fixed inset-0 bg-pattern opacity-20 -z-10"></div>
+
+    <!-- ========================================== -->
+    <!-- MODAL POPUP WARNA UNGU HITAM -->
+    <!-- ========================================== -->
+    <div id="welcomeModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center">
+        <div class="bg-card rounded-2xl overflow-hidden w-full max-w-sm shadow-2xl modal">
+            
+            <!-- HEADER MODAL -->
+            <div class="bg-gradient-to-r from-primary to-secondary p-4 text-white relative">
+                <h3 class="text-center text-lg font-bold">WELCOME TO</h3>
+                <h2 class="text-center text-2xl font-black">NANDA MARKET</h2>
+                <!-- TOMBOL CLOSE / KELUAR -->
+                <button onclick="closeModal()" class="absolute top-3 right-3 bg-white/20 hover:bg-white/40 rounded-full w-8 h-8 flex items-center justify-center transition">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- GAMBAR ANIME / BANNER -->
+            <div class="w-full h-40 bg-cover bg-center" style="background-image: url('https://b.top4top.io/p_3771ixc1q1.jpg');">
+            </div>
+
+            <!-- ISI KONTEN -->
+            <div class="p-6 text-center">
+                <h4 class="text-primary font-bold text-lg mb-2">Channel WhatsApp</h4>
+                <p class="text-gray-400 text-sm mb-6">
+                    Gabung ke Channel WhatsApp kami sekarang!<br>
+                    Dapatkan update terbaru dan info penting<br>
+                    Jangan sampai ketinggalan
+                </p>
+
+                <!-- TOMBOL GABUNG -->
+                <a href="https://whatsapp.com/channel/0029VbCtwc7GZNCnBeSnTD3B" target="_blank" class="block w-full bg-gradient-to-r from-secondary to-primary hover:from-primary hover:to-secondary text-white font-bold py-3 rounded-xl transition flex items-center justify-center gap-2">
+                    <i class="fab fa-whatsapp"></i> Gabung Channel
+                </a>
+            </div>
+           </div>
+           </div>
+    
+    <!-- MAIN CONTENT -->
+    <main class="pt-18 pb-16 px-4">
+                    <!-- BANNER PROMO -->
+        <div class="bg-yellow-500/30 border border-yellow-500/30 rounded-xl p-3 mb-8 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <i class="fas fa-bullhorn text-yellow-400 text-xl"></i>
+                <p class="text-sm text-yellow-205">KETIKA KALIAN BELI ZEPHYRINE AI AKAN MENDAPATKAN BENEFIT SCRIPT MD,CPANEL,AUTOORDER,FREEPANELUNLILEGAL</p>
+
+            </div>
+            <button class="text-yellow-400 hover:text-white"><i class="fas fa-times"></i></button>
+        </div>
+                <span class="text-primary text-gradient">MARKET</span>
+            </h1>
+        <!-- Slider / Carousel Iklan -->
+        <section class="mb-14 relative">
+            <div id="carousel" class="flex overflow-x-auto scrollbar-hide snap-x snap-mandatory gap-4 pb-4">
+                <!-- Slide 1 -->
+                <div class="min-w-full md:min-w-[48%] lg:min-w-[32%] snap-center rounded-xl overflow-hidden relative h-64 md:h-80 glow-border">
+                    <img src="https://a.top4top.io/p_3771wlwkm1.jpg" alt="Banner 1" class="w-full h-full object-cover absolute top-0 left-0 brightness-75">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-6 z-10">
+                        <h2 class="text-3xl md:text-4xl font-bold text-shadow mb-2">SC ZEPHYRINE AI</h2>
+                        <p class="text-purplelight mb-4">SCRIPT BOT PREMIUM DENGAN 1860+ FITUR STABIL</p>
+                        <button class="bg-purple hover:bg-purplelight px-6 py-2 rounded-lg font-semibold transition-all"></button>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="min-w-full md:min-w-[48%] lg:min-w-[32%] snap-center rounded-xl overflow-hidden relative h-64 md:h-80 glow-border">
+                    <img src="https://n.uguu.se/occvKVEE.jpg" alt="Banner 2" class="w-full h-full object-cover absolute top-0 left-0 brightness-75">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-6 z-10">
+                        <h2 class="text-3xl md:text-4xl font-bold text-shadow mb-2">PANEL PTERO PREMIUM</h2>
+                        <p class="text-purplelight mb-4">HARGA MURAH,BERGARANSI 30DAYS</p>
+                        <button class="bg-purple hover:bg-purplelight px-6 py-2 rounded-lg font-semibold transition-all"></button>
+                    </div>
+                </div>
+                
+                <!-- Slide 3 -->
+                <div class="min-w-full md:min-w-[48%] lg:min-w-[32%] snap-center rounded-xl overflow-hidden relative h-64 md:h-80 glow-border">
+                    <img src="https://o.uguu.se/adEKBlqo.jpg" alt="Banner 3" class="w-full h-full object-cover absolute top-0 left-0 brightness-75">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-6 z-10">
+                        <h2 class="text-3xl md:text-4xl font-bold text-shadow mb-2">JADI BOT</h2>
+                        <p class="text-purplelight mb-4">ANTI KENON DAN DATA TERJAGA</p>
+                        <button class="bg-purple hover:bg-purplelight px-6 py-2 rounded-lg font-semibold transition-all"></button>
+                    </div>
+                </div>
+            </div>
+          </section>
+            
+            <!-- Indicator Slider -->
+            <div class="flex justify-center gap-2 mt-4">
+                <span class="h-3 w-8 rounded-full bg-purple"></span>
+                <span class="h-2 w-4 rounded-full bg-purple/50"></span>
+                <span class="h-2 w-2 rounded-full bg-purple/50"></span>
+            </div>
+            </section>
+        
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="bg-gradient-to-r from-primary to-secondary hover:brightness-100 text-white font-bold py-4 px-8 rounded-xl text-lg transition transform hover:scale-105">
+        <!-- ========================================== -->
+        <!-- SECTION FITUR BOT -->
+        <!-- ========================================== -->
+        <div id="features" class="mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-4">MENU UTAMA YANG KEREN</h2>
+            <p class="text-slate-400 text-center mb-12">Fitur lengkap & performa maksimal</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                
+                <div class="bg-card rounded-2xl p-6 border border-primary/20 hover:border-primary/50 transition">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-xl">
+                            <i class="fas fa-eye-slash"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">BISA HIDETAG</h3>
+                    </div>
+                    <p class="text-slate-400">Sembunyikan tag agar tidak mengganggu member lain.</p>
+                </div>
+
+                <div class="bg-card rounded-2xl p-6 border border-primary/20 hover:border-primary/50 transition">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-xl">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">BISA TAGALL MEMBER</h3>
+                    </div>
+                    <p class="text-slate-400">Tag semua member grup dengan mudah & cepat.</p>
+                </div>
+
+                <div class="bg-card rounded-2xl p-6 border border-primary/20 hover:border-primary/50 transition">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-xl">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">BISA UP SW GROUP</h3>
+                    </div>
+                    <p class="text-slate-400">Upload status story langsung ke grup.</p>
+                </div>
+
+                <div class="bg-card rounded-2xl p-6 border border-primary/20 hover:border-primary/50 transition">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-xl">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">BISA SET WELCOME</h3>
+                    </div>
+                    <p class="text-slate-400">Atur pesan sambutan otomatis untuk member baru.</p>
+                </div>
+                
+                <div class="bg-card rounded-2xl p-6 border border-primary/20 hover:border-primary/50 transition">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-xl">
+                            <i class="fas fa-door-open"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">BISA SET GOODBYE</h3>
+                    </div>
+                    <p class="text-slate-400">Atur pesan perpisahan otomatis saat member keluar.</p>
+                </div>
+
+                <div class="bg-card rounded-2xl p-6 border border-primary/20 hover:border-primary/50 transition">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-xl">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">PLAY MUSIC / SPOTIFY</h3>
+                    </div>
+                    <p class="text-slate-400">Putar lagu langsung dari Spotify atau pencarian.</p>
+                </div>
+
+                <div class="bg-card rounded-2xl p-6 border border-primary/20 hover:border-primary/50 transition">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-xl">
+                            <i class="fas fa-store-alt"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">BIKIN LIST JUALAN</h3>
+                    </div>
+                    <p class="text-slate-400">Buat daftar produk/jualan otomatis di grup.</p>
+                </div>
+
+                <div class="bg-card rounded-2xl p-6 border border-primary/20 hover:border-primary/50 transition">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-xl">
+                            <i class="fas fa-unlink"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">HAPUS LINK / LINK GB</h3>
+                    </div>
+                    <p class="text-slate-400">Auto hapus link grup lain atau link berbahaya.</p>
+                </div>
+
+                <div class="bg-card rounded-2xl p-6 border border-primary/20 hover:border-primary/50 transition">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-xl">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">BISA MAIN GAMES</h3>
+                    </div>
+                    <p class="text-slate-400">Banyak pilihan game seru untuk dimainkan bareng.</p>
+                </div>
+
+                <div class="bg-card rounded-2xl p-6 border border-primary/20 hover:border-primary/50 transition">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-xl">
+                            <i class="fab fa-tiktok"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">DOWNLOAD TIKTOK</h3>
+                    </div>
+                    <p class="text-slate-400">Download video & audio TikTok tanpa watermark.</p>
+                </div>
+
+                <div class="bg-card rounded-2xl p-6 border border-primary/20 hover:border-primary/50 transition">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-xl">
+                            <i class="fas fa-user-secret"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">TELANJANG (KHUSUS PREM)</h3>
+                    </div>
+                    <p class="text-slate-400">Fitur khusus eksklusif hanya untuk user Premium.</p>
+                </div>
+
+                <div class="bg-card rounded-2xl p-6 border border-primary/20 hover:border-primary/50 transition">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-xl">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">TOIMG, BRAT, IQC</h3>
+                    </div>
+                    <p class="text-slate-400">Convert text to image, style brat, dan quality check.</p>
+                </div>
+
+                <div class="bg-card rounded-2xl p-6 border border-primary/20 hover:border-primary/50 transition">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center text-primary text-xl">
+                            <i class="fas fa-photo-video"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">PAP, RVO, RVO2, NFSW</h3>
+                    </div>
+                    <p class="text-slate-400">Kirim foto & video random dengan berbagai kategori.</p>
+                    </button>
+                </div>
+               </div>
+             </section>
+
+        <!-- HEADER ANNOUNCEMENT -->
+        <div class="text-center mb-10">
+            <div class="inline-block bg-primary/20 border border-primary/40 rounded-full px-6 py-2 mb-4">
+                <h2 class="text-lg font-bold text-primary flex items-center gap-2">
+                    <i class="fas fa-bullhorn"></i> ANNOUNCEMENT
+                </h2>
+            </div>
+            <h3 class="text-3xl md:text-4xl font-black mb-2">PERATURAN SEWA BOT</h3>
+            <p class="text-slate-400">Wajib dibaca dan dipatuhi oleh semua penyewa</p>
+        </div>
+
+        <!-- CARD INTRO -->
+        <div class="bg-card rounded-2xl p-6 md:p-8 border border-primary/20 mb-8 shadow-lg">
+            <p class="text-slate-300 text-lg leading-relaxed mb-4">
+                Hai teman-teman yang sewa bot <span class="text-primary font-bold">Nandazx</span>, owner bot ingin menyampaikan beberapa hal mengenai rules bot.
+            </p>
+            <p class="text-yellow-400 font-semibold">
+                <i class="fas fa-exclamation-circle mr-2"></i> Mohon baca dengan teliti agar tidak terjadi kesalahpahaman.
+            </p>
+        </div>
+
+        <!-- LIST RULES -->
+        <div class="space-y-6 mb-10">
+            
+            <!-- RULE 1 -->
+            <div class="bg-card rounded-2xl p-6 border border-slate-800 rule-item">
+                <h4 class="text-xl font-bold mb-3 flex items-center gap-2">
+                    <span class="text-primary">1.</span> DILARANG CHAT BOT
+                </h4>
+                <p class="text-slate-400 mb-4">Dilarang chat bot sama sekali meskipun satu huruf.</p>
+                <div class="denda rounded-xl p-3 inline-flex items-center gap-2">
+                    <i class="fas fa-money-bill-wave text-red-400"></i>
+                    <span class="text-red-400 font-bold">Denda Rp 10.000</span>
+                </div>
+            </div>
+
+            <!-- RULE 2 -->
+            <div class="bg-card rounded-2xl p-6 border border-slate-800 rule-item">
+                <h4 class="text-xl font-bold mb-3 flex items-center gap-2">
+                    <span class="text-primary">2.</span> DILARANG CALL BOT
+                </h4>
+                <p class="text-slate-400 mb-4">Dilarang melakukan panggilan telepon atau video call ke bot.</p>
+                <div class="denda rounded-xl p-3 inline-flex items-center gap-2">
+                    <i class="fas fa-money-bill-wave text-red-400"></i>
+                    <span class="text-red-400 font-bold">Denda Rp 15.000 + Blacklist Permanen</span>
+                </div>
+            </div>
+
+            <!-- RULE 3 -->
+            <div class="bg-card rounded-2xl p-6 border border-slate-800 rule-item">
+                <h4 class="text-xl font-bold mb-3 flex items-center gap-2">
+                    <span class="text-primary">3.</span> DILARANG MENCURIK / MENCULIK BOT
+                </h4>
+                <p class="text-slate-400 mb-4">Dilarang keras memindahkan bot ke grup lain tanpa izin atau menculik bot.</p>
+                <div class="denda rounded-xl p-3 inline-flex items-center gap-2">
+                    <i class="fas fa-money-bill-wave text-red-400"></i>
+                    <span class="text-red-400 font-bold">Denda Rp 30.000</span>
+                </div>
+            </div>
+
+            <!-- RULE 4 -->
+            <div class="bg-card rounded-2xl p-6 border border-slate-800 rule-item">
+                <h4 class="text-xl font-bold mb-3 flex items-center gap-2">
+                    <span class="text-primary">4.</span> DILARANG SPAM
+                </h4>
+                <p class="text-slate-400 mb-4">Dilarang keras spam bot tanpa jeda. Jika melanggar, tanggung akibat sendiri.</p>
+                <div class="bg-yellow-500/20 border border-yellow-500/40 rounded-xl p-3 inline-flex items-center gap-2">
+                    <i class="fas fa-exclamation-triangle text-yellow-400"></i>
+                    <span class="text-yellow-400 font-bold">SANKSI TEGAS</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- CATATAN PENTING -->
+        <div class="bg-primary/10 border border-primary/30 rounded-2xl p-6 text-center mb-10">
+            <i class="fas fa-info-circle text-primary text-4xl mb-4"></i>
+            <h4 class="text-xl font-bold text-white mb-3">GARIS BAWAHI INI!</h4>
+            <p class="text-slate-300 leading-relaxed">
+                Berlaku bagi siapa pun yang sewa bot Nanda, mau kalian sengaja atau tidak tetap terkena konsekuensinya.
+            </p>
+        </div>
+
+        
+
+
+        <!-- ========================================== -->
+        <!-- SECTION HARGA / PRICING -->
+        <!-- ========================================== -->
+        <div class="space-y-8 max-w-3xl mx-auto mb-16">
+            
+            
+            <!-- PAKET SEWA -->
+            <div class="bg-card rounded-3xl p-6 md:p-8 border border-primary/20">
+                <h3 class="text-2xl font-bold text-center text-primary mb-6">📋 PANEL LEGAL</h3>
+                <div class="space-y-3 mb-6">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                        <span class="text-slate-400">★ 2 RAM GB</span>
+                        <span class="font-bold">Rp 3.000</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                        <span class="text-slate-400">★ 5 RAM GB</span>
+                        <span class="font-bold">Rp 5.000</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                        <span class="text-slate-400">★ 7 RAM GB</span>
+                        <span class="font-bold">Rp 8.000</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                        <span class="text-slate-400">★ 10 RAM GB</span>
+                        <span class="font-bold">Rp 15.000</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                        <span class="text-slate-400">★ UNLINIMATED</span>
+                        <span class="font-bold">Rp 17.000</span>
+                    </div>
+                </div>
+                <button onclick="openPaymentModal('PANEL', 3000)" class="w-full bg-primary/20 hover:bg-primary hover:text-dark text-primary font-bold py-4 rounded-xl text-lg transition">
+                    PESAN SEKARANG <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+            
+            <!-- PAKET SEWA -->
+            <div class="bg-card rounded-3xl p-6 md:p-8 border border-primary/20">
+                <h3 class="text-2xl font-bold text-center text-primary mb-6">📢 SEWA BOT</h3>
+                <div class="space-y-3 mb-6">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                        <span class="text-slate-400">★ 1 MINGGU</span>
+                        <span class="font-bold">Rp 10.000</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                        <span class="text-slate-400">★ 1 BULAN</span>
+                        <span class="font-bold">Rp 20.000</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                        <span class="text-slate-400">★ 6 BULAN</span>
+                        <span class="font-bold">Rp 35.000</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                        <span class="text-slate-400">★ 12 BULAN</span>
+                        <span class="font-bold">Rp 50.000</span>
+                    </div>
+                </div>
+                <button onclick="openPaymentModal('SEWA BOT', 10000)" class="w-full bg-primary/20 hover:bg-primary hover:text-dark text-primary font-bold py-4 rounded-xl text-lg transition">
+                    PESAN SEKARANG <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+
+            <!-- PAKET PREMIUM -->
+            <div class="bg-card rounded-3xl p-6 md:p-8 border border-primary/20">
+                <h3 class="text-2xl font-bold text-center text-primary mb-6">💸 PREMIUM</h3>
+                <div class="space-y-3 mb-6">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                        <span class="text-slate-400">• 1 HARI</span>
+                        <span class="font-bold">Rp 2.000</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                        <span class="text-slate-400">• 7 HARI</span>
+                        <span class="font-bold">Rp 5.000</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                        <span class="text-slate-400">• 15 HARI</span>
+                        <span class="font-bold">Rp 8.000</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                        <span class="text-slate-400">• 25 HARI</span>
+                        <span class="font-bold">Rp 12.000</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                        <span class="text-slate-400">• 30 HARI</span>
+                        <span class="font-bold">Rp 15.000</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                        <span class="text-slate-400">• PERMANEN</span>
+                        <span class="font-bold">Rp 45.000</span>
+                </div>
+                </div>
+                <button onclick="openPaymentModal('PREMIUM', 2000,5000,8000,12000,15000,45000)" class="w-full bg-primary/20 hover:bg-primary hover:text-dark text-primary font-bold py-4 rounded-xl text-lg transition">
+                    PESAN SEKARANG <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+
+            <!-- PAKET SEWA -->
+            <div class="bg-card rounded-3xl p-6 md:p-8 border border-primary/20">
+                <h3 class="text-2xl font-bold text-center text-primary mb-6">📋 SEWA BOT+PREMUIM</h3>
+                <div class="space-y-3 mb-6">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                        <span class="text-slate-400">★ 1 MINGGU</span>
+                        <span class="font-bold">Rp 15.000</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                        <span class="text-slate-400">★ 1 BULAN</span>
+                        <span class="font-bold">Rp 30.000</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                        <span class="text-slate-400">★ 6 BULAN</span>
+                        <span class="font-bold">Rp 40.000</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                        <span class="text-slate-400">★ 12 BULAN</span>
+                        <span class="font-bold">Rp 65.000</span>
+                    </div>
+                </div>
+                <button onclick="openPaymentModal('SEWA BOT', 15000)" class="w-full bg-primary/20 hover:bg-primary hover:text-dark text-primary font-bold py-4 rounded-xl text-lg transition">
+                    PESAN SEKARANG <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+  
+        <!-- HEADER TEXT -->
+        <p class="text-slate-400 text-lg mb-6">Pilih paket script premium dengan performa maksimal untuk kebutuhan Anda</p>
+
+        <!-- ========================================== -->
+        <!-- HIYORIZUMI AI -->
+        <!-- ========================================== -->
+        <div class="bg-card rounded-2xl p-6 mb-6 border border-primary/20 shadow-lg">
+            <h3 class="text-2xl font-bold mb-1 text-hiyorizumi">HIYORZUMI AI</h3>
+            <p class="text-slate-400 mb-4">Script Premium AI</p>
+            
+            <p class="text-5xl font-black mb-6">Rp75.000</p>
+
+            <div class="spec-box p-4 mb-6">
+                <div class="flex justify-between items-center py-2 border-b border-slate-700/50">
+                    <span class="text-slate-400">Status</span>
+                    <span class="font-bold text-green-400">AVAILABLE</span>
+                </div>
+                <div class="flex justify-between items-center py-2">
+                    <span class="text-slate-400">Type</span>
+                    <span class="font-bold">FULL SCRIPT</span>
+                </div>
+            </div>
+<button onclick="openPaymentModal('SlSCIPT HIYORZUMI', 75000)" class="w-full bg-primary/20 hover:bg-primary hover:text-dark text-primary font-bold py-4 rounded-xl text-lg transition">
+                PESAN SEKARANG <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- ZEPHYRINE -->
+        <!-- ========================================== -->
+        <div class="bg-card rounded-2xl p-6 mb-6 border border-primary/20 shadow-lg">
+            <h3 class="text-2xl font-bold mb-1 text-zephyrine">ZEPHYRINE AI</h3>
+            <p class="text-slate-400 mb-4">Script Premium</p>
+            
+            <p class="text-5xl font-black mb-6">Rp80.000</p>
+
+            <div class="spec-box p-4 mb-6">
+                <div class="flex justify-between items-center py-2 border-b border-slate-700/50">
+                    <span class="text-slate-400">Status</span>
+                    <span class="font-bold text-green-400">AVAILABLE</span>
+                </div>
+                <div class="flex justify-between items-center py-2">
+                    <span class="text-slate-400">Type</span>
+                    <span class="font-bold">FULL SCRIPT</span>
+                </div>
+            </div>
+
+<button onclick="openPaymentModal('SlSCIPT ZEPHYRINE', 80000)" class="w-full bg-primary/20 hover:bg-primary hover:text-dark text-primary font-bold py-4 rounded-xl text-lg transition">
+                PESAN SEKARANG <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+       </section>
+        
+
+        <!-- ========================================== -->
+        <!-- MENU BOT -->
+        <!-- ========================================== -->
+        <div class="bg-card rounded-2xl p-6 mb-6 border border-primary/20 shadow-lg">
+            <h3 class="text-2xl font-bold mb-1 text-menubot">JADI BOT</h3>
+            <p class="text-slate-400 mb-4">Sewa 
+            Jadi Bot Premium</p>
+            
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <div class="spec-box p-4 text-center">
+                    <p class="text-3xl font-black text-menubot">15K</p>
+                    <p class="text-sm text-slate-400">• 14 Days •</p>
+                </div>
+
+            <div class="spec-box p-4 mb-6">
+                <div class="flex justify-between items-center py-2 border-b border-slate-700/50">
+                    <span class="text-slate-400">Fitur</span>
+                    <span class="font-bold">ALL MENU</span>
+                </div>
+                <div class="flex justify-between items-center py-2">
+                    <span class="text-slate-400">RUN</span>
+                    <span class="font-bold text-green-400">MUDAH</span>
+                </div>
+            </div>
+
+            <button onclick="openPaymentModal('JADI BOT', 15000)" class="w-full bg-primary/20 hover:bg-primary hover:text-dark text-primary font-bold py-4 rounded-xl text-lg transition">
+                PESAN SEKARANG <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+       </section>
+        
+        <!-- ========================================== -->
+        <!-- MENU BOT -->
+        <!-- ========================================== -->
+        <div class="bg-card rounded-2xl p-6 mb-6 border border-primary/20 shadow-lg">
+            <h3 class="text-2xl font-bold mb-1 text-menubot">JADI BOT</h3>
+            <p class="text-slate-400 mb-4">Sewa Jadi Bot  Premium</p>
+            
+            <div class="grid grid-cols-2 gap-4 mb-6">
+                <div class="spec-box p-4 text-center">
+                    <p class="text-3xl font-black text-menubot">30K</p>
+                    <p class="text-sm text-slate-400">• 30 Days •</p>
+                </div>
+
+            <div class="spec-box p-4 mb-6">
+                <div class="flex justify-between items-center py-2 border-b border-slate-700/50">
+                    <span class="text-slate-400">Fitur</span>
+                    <span class="font-bold">ALL MENU</span>
+                </div>
+                <div class="flex justify-between items-center py-2">
+                    <span class="text-slate-400">BUAT?</span>
+                    <span class="font-bold text-green-400">SEWA</span>
+                </div>
+            </div>
+
+            <button onclick="openPaymentModal('JADI BOT', 30000)" class="w-full bg-primary/20 hover:bg-primary hover:text-dark text-primary font-bold py-4 rounded-xl text-lg transition">
+                PESAN SEKARANG <i class="fas fa-arrow-right ml-2"></i>
+            </button>
+        </div>
+       </section>
+        
+
+
+<!-- ========================================== -->
+    <!-- MODAL PEMBAYARAN -->
+    <!-- ========================================== -->
+    <div id="paymentModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center">
+        <div class="bg-card rounded-3xl p-6 md:p-8 border border-primary/30 w-full max-w-md modal">
+            
+            <!-- HEADER -->
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">KONFIGURASI SERVER</h2>
+                <button onclick="closePaymentModal()" class="text-slate-400 hover:text-white text-xl bg-slate-800 rounded-full w-8 h-8 flex items-center justify-center">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- COUNTDOWN -->
+            <div class="countdown-box rounded-xl p-4 mb-6 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-clock text-primary"></i>
+                    <span class="text-slate-300">Selesaikan pembayaran dalam</span>
+                </div>
+                <span id="countdown" class="font-bold text-lg text-primary">04:57</span>
+            </div>
+
+            <!-- QRIS CODE -->
+            <div class="bg-white p-4 rounded-xl mb-6 text-center">
+                <img src="https://a.top4top.io/p_3763ez1351.jpg" alt="QRIS Code" class="w-full max-w-[200px] mx-auto rounded-lg">
+            </div>
+
+
+            <!-- NOMOR DANA -->
+            <div class="bg-slate-800 rounded-xl p-4 mb-4 border border-blue-500/30">
+                <div class="flex items-center gap-3 mb-2">
+                    <i class="fab fa-dana text-blue-400 text-2xl"></i>
+                    <span class="font-bold">DANA</span>
+                </div>
+                <div class="flex items-center justify-between bg-slate-900 rounded-lg p-3">
+                    <span id="danaNumber" class="font-mono text-lg">083838675484</span>
+                    <button onclick="copyText('danaNumber')" class="text-primary hover:text-white transition">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- NOMOR GOPAY -->
+            <div class="bg-slate-800 rounded-xl p-4 mb-6 border border-green-500/30">
+                <div class="flex items-center gap-3 mb-2">
+                    <i class="fas fa-wallet text-green-400 text-2xl"></i>
+                    <span class="font-bold">GOPAY</span>
+                </div>
+                <div class="flex items-center justify-between bg-slate-900 rounded-lg p-3">
+                    <span id="gopayNumber" class="font-mono text-lg">083838675484</span>
+                    <button onclick="copyText('gopayNumber')" class="text-primary hover:text-white transition">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- NOMOR SHOPEPAY -->
+            <div class="bg-slate-800 rounded-xl p-4 mb-4 border border-blue-500/30">
+                <div class="flex items-center gap-3 mb-2">
+                    <i class="fab fa-dana text-blue-400 text-2xl"></i>
+                    <span class="font-bold">SHOPEPAY</span>
+                </div>
+                <div class="flex items-center justify-between bg-slate-900 rounded-lg p-3">
+                    <span id="danaNumber" class="font-mono text-lg">083838675484</span>
+                    <button onclick="copyText('danaNumber')" class="text-primary hover:text-white transition">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- HARGA -->
+            <p class="text-3xl font-black text-center mb-6 text-primary" id="packagePrice">Rp Sesuaikan</p>
+                
+                <button onclick="closePaymentModal()" class="w-full bg-red-900/20 hover:bg-red-900/40 text-red-500 font-bold py-3 rounded-xl text-lg transition flex items-center justify-center gap-2 border border-red-500/30">
+                    <i class="fas fa-times"></i> Batalkan Transaksi
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fungsi Buka Modal
+        function openPaymentModal(packageName, price) {
+            document.getElementById('packagePrice').innerText = 'Rp ' + price.toLocaleString('id-ID');
+            document.getElementById('paymentModal').classList.remove('hidden');
+            
+            // Reset Countdown
+            clearInterval(timerInterval);
+            timeLeft = 4 * 60 + 57;
+            updateCountdown();
+            timerInterval = setInterval(updateCountdown, 1000);
+        }
+
+        // Fungsi Tutup Modal
+        function closePaymentModal() {
+            document.getElementById('paymentModal').classList.add('hidden');
+        }
+
+        // Countdown
+        let timeLeft = 4 * 60 + 57;
+        const countdownEl = document.getElementById('countdown');
+
+        function updateCountdown() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            countdownEl.innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                countdownEl.innerText = "WAKTU HABIS";
+                countdownEl.classList.add('text-red-500');
+            } else {
+                timeLeft--;
+            }
+        }
+
+        // Copy Function
+        function copyText(elementId) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Nomor berhasil disalin!');
+            });
+            }
+         </script>
+         
+                                <!-- CONTACT ADMIN SECTION -->
+                <h4 class="text-white font-bold text-lg mb-4 flex items-center justify-center gap-2">
+                    <i class="fas fa-headset text-primary"></i> CONTACT ADMIN
+                </h4>
+                
+                <div class="space-y-4">
+                    
+                    <!-- WHATSAPP -->
+                    <a href="https://wa.me/6283130010117" target="_blank" 
+                       class="flex items-center gap-4 bg-slate-800/70 hover:bg-green-600/20 p-4 rounded-2xl transition-all duration-300 border border-slate-700 hover:border-green-500/50 btn-admin">
+                        <div class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
+                            <i class="fab fa-whatsapp text-green-400 text-xl"></i>
+                        </div>
+                        <span class="text-white font-semibold">WhatsApp Admin</span>
+                        <i class="fas fa-external-link-alt ml-auto text-xs text-slate-400"></i>
+                    </a>
+
+                    <!-- TELEGRAM -->
+                    <a href="https://t.me/Nanoffc" target="_blank" 
+                       class="flex items-center gap-4 bg-slate-800/70 hover:bg-blue-600/20 p-4 rounded-2xl transition-all duration-300 border border-slate-700 hover:border-blue-500/50 btn-admin">
+                        <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
+                            <i class="fab fa-telegram text-blue-400 text-xl"></i>
+                        </div>
+                        <span class="text-white font-semibold">Telegram Admin</span>
+                        <i class="fas fa-external-link-alt ml-auto text-xs text-slate-400"></i>
+                    </a>
+
+                    <!-- TIKTOK -->
+                    <a href="https://tiktok.com/@nandakiezx" target="_blank" 
+                       class="flex items-center gap-4 bg-slate-800/70 hover:bg-pink-600/20 p-4 rounded-2xl transition-all duration-300 border border-slate-700 hover:border-pink-500/50 btn-admin">
+                        <div class="w-10 h-10 rounded-full bg-pink-500/20 flex items-center justify-center">
+                            <i class="fab fa-tiktok text-pink-400 text-xl"></i>
+                        </div>
+                        <span class="text-white font-semibold">TikTok Official</span>
+                        <i class="fas fa-external-link-alt ml-auto text-xs text-slate-400"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Fungsi untuk menutup modal / keluar
+        function closeModal() {
+            document.getElementById('welcomeModal').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
+
+        <!-- ========================================== -->
+        <!-- BAGIAN RATING / PENILAIAN WEB -->
+        <!-- ========================================== -->
+        <div class="bg-card rounded-2xl p-6 border border-primary/20 shadow-lg text-center mt-10">
+            <h4 class="text-xl font-bold mb-2">⭐ SEBERAPA BAGUS WEB INI?</h4>
+            <p class="text-slate-400 mb-4">Klik bintang di bawah untuk memberikan penilaian</p>
+            
+            <!-- BINTANG YANG BISA DIKLIK -->
+            <div class="flex justify-center gap-3 mb-4">
+                <i class="fas fa-star text-4xl star" data-value="1" onclick="rate(this)"></i>
+                <i class="fas fa-star text-4xl star" data-value="2" onclick="rate(this)"></i>
+                <i class="fas fa-star text-4xl star" data-value="3" onclick="rate(this)"></i>
+                <i class="fas fa-star text-4xl star" data-value="4" onclick="rate(this)"></i>
+                <i class="fas fa-star text-4xl star" data-value="5" onclick="rate(this)"></i>
+            </div>
+            
+            <p id="ratingText" class="text-sm text-slate-400">Belum ada penilaian</p>
+        </div>
+
+    </div>
+
+    <script>
+        // Fungsi Rating Bintang
+        function rate(element) {
+            const value = parseInt(element.getAttribute('data-value'));
+            const stars = document.querySelectorAll('.star');
+            
+            // Hapus class active semua
+            stars.forEach(star => star.classList.remove('active'));
+            
+            // Beri warna KUNING sampai bintang yang diklik
+            for(let i = 0; i < value; i++) {
+                stars[i].classList.add('active');
+            }
+
+            // Ubah text sesuai rating
+            const text = document.getElementById('ratingText');
+            if(value == 1) text.innerText = "Burik 😅";
+            else if(value == 2) text.innerText = "Biasa saja 😐";
+            else if(value == 3) text.innerText = "Cukup bagus 🙂";
+            else if(value == 4) text.innerText = "Bagus banget 😍";
+            else if(value == 5) text.innerText = "Sangat Mantap! 🔥🔥🔥";
+        }
+    </script>
+    
+        <!-- FOOTER SIGN -->
+        <div class="text-center mt-12 pt-8 border-t border-slate-800">
+            <p class="text-slate-400 italic">Terimakasih,</p>
+            <h3 class="text-2xl font-bold text-primary mt-2">Kami selaku owner Nandazx Market</h3>
+            <div class="mt-4 flex justify-center gap-4">
+                <i class="fas fa-shield-alt text-primary"></i>
+                <i class="fas fa-copyright text-slate-600"></i>
+                <i class="fas fa-gem text-primary"></i>
+            </div>
+        </div>
+
+    </main>
+
+</body>
+</html>
+
+    <!-- Script untuk slider otomatis -->
+    <script>
+        const carousel = document.getElementById('carousel');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        // Drag functionality
+        carousel.addEventListener('mousedown', (e) => {
+            isDown = true;
+            carousel.classList.add('cursor-grabbing');
+            startX = e.pageX - carousel.offsetLeft;
+            scrollLeft = carousel.scrollLeft;
+        });
+
+        carousel.addEventListener('mouseleave', () => {
+            isDown = false;
+            carousel.classList.remove('cursor-grabbing');
+        });
+
+        carousel.addEventListener('mouseup', () => {
+            isDown = false;
+            carousel.classList.remove('cursor-grabbing');
+        });
+
+        carousel.addEventListener('mousemove', (e) => {
+            if(!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - carousel.offsetLeft;
+            const walk = (x - startX) * 2; //scroll-fast
+            carousel.scrollLeft = scrollLeft - walk;
+        });
+        
+        // Touch support for mobile
+        carousel.addEventListener('touchstart', (e) => {
+            isDown = true;
+            startX = e.touches[0].pageX - carousel.offsetLeft;
+            scrollLeft = carousel.scrollLeft;
+        });
+
+        carousel.addEventListener('touchend', () => {
+            isDown = false;
+        });
+
+        carousel.addEventListener('touchmove', (e) => {
+            if(!isDown) return;
+            const x = e.touches[0].pageX - carousel.offsetLeft;
+            const walk = (x - startX) * 2;
+            carousel.scrollLeft = scrollLeft - walk;
+        });
+    </script>
+    <script>
+        // JavaScript untuk Sidebar
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const openBtn = document.getElementById('openSidebar');
+        const closeBtn = document.getElementById('closeSidebar');
+
+        openBtn.addEventListener('click', () => {
+            sidebar.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden');
+        });
+
+        function closeSidebar() {
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+        }
+
+        closeBtn.addEventListener('click', closeSidebar);
+        overlay.addEventListener('click', closeSidebar);
+
+        // Tutup sidebar saat menu diklik (di HP)
+        const menuLinks = document.querySelectorAll('#sidebar a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth < 768) {
+                    closeSidebar();
+                }
+            });
+        });
+    </script>
+        <script>
+        // Fungsi untuk menutup modal / keluar
+        function closeModal() {
+            document.getElementById('welcomeModal').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
